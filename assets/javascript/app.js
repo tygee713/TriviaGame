@@ -58,24 +58,7 @@ var questions = {
 		}
 	]
 }
-var counter;
 
-var timer = {
-	time: 10,
-	reset: function() {
-		timer.time = 10;
-	},
-	stop: function() {
-		clearInterval(counter);
-	},
-	start: function() {
-		counter = setInterval(timer.count, 1000);
-	},
-	count: function() {
-		timer.time--;
-		$("#timer").html("Time Remaining: " + timer.time);
-	}
-}
 
 function game() {
 	numCorrect = 0;
@@ -83,6 +66,27 @@ function game() {
 	numUnanswered = 0;
 	questionNum = 0;
 
+	var counter;
+
+	var timer = {
+		time: 10,
+		reset: function() {
+			timer.time = 10;
+		},
+		stop: function() {
+			clearInterval(counter);
+		},
+		start: function() {
+			counter = setInterval(timer.count, 1000);
+		},
+		count: function() {
+			timer.time--;
+			$("#timer").html("Time Remaining: " + timer.time);
+			if (timer.time == 0) {
+				answerPage(5, false);
+			}
+		}
+	}
 	$("#startButton").on("click",function() {
 		$("#startButton").hide();
 		newQuestion();
@@ -90,7 +94,7 @@ function game() {
 
 	function newQuestion() {
 		timer.reset();
-		
+
 		$("#timer").html("Time Remaining: " + timer.time);
 		$("#result").empty();
 		$("#result-image").empty();
@@ -101,18 +105,25 @@ function game() {
 		}
 
 		timer.start();
-		var timesUp = setTimeout(function() {answerpage(5, false)}, 10000);
+		// var timesUp = setTimeout(function() {
+		// 	$("#question").empty();
+		// 	$("#choices").empty();
+		// 	timer.stop();
+		// 	answerPage(5, false)}, 10000);
 
 		$(".answerChoice").on("click", function() {
-			$("#question").empty();
-			$("#choices").empty();
+			// $("#question").empty();
+			// $("#choices").empty();
 			var answerIndex = $(this).data('val');
-			timer.stop();
+			// timer.stop();
 			answerPage(answerIndex, true);
 		});
 	}
 
 	function answerPage(answerIndex, answered) {
+		$("#question").empty();
+		$("#choices").empty();
+		timer.stop();
 		if (answerIndex == questions.questionArray[questionNum].correctIndex) {
 			$("#result").html("Correct!");
 			numCorrect++;
