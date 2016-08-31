@@ -7,58 +7,57 @@ var questions = {
 	"questionArray":
 	[
 		{
-			question: "This is question 1",
-			answers: ['a', 'b', 'c', 'd'],
+			question: "What is the taste that allows us to taste savory foods?",
+			answers: ['Sweet', 'Sour', 'Bitter', 'Umami'],
+			correctIndex: 3
+		},
+		{
+			question: "A tandoor is a type of what?",
+			answers: ['Pot', 'Oven', 'Pastry', 'Utensil'],
+			correctIndex: 1
+		},
+		{
+			question: "What country was Guiness first brewed in?",
+			answers: ['United Kingdom', 'Ireland', 'Germany', 'Russia'],
+			correctIndex: 1
+		},
+		{
+			question: "What US state did Gumbo originate from?",
+			answers: ['Florida', 'Mississippi', 'Louisiana', 'South Carolina'],
+			correctIndex: 2
+		},
+		{
+			question: "What ingredient in bread causes it to rise?",
+			answers: ['Baking Soda', 'Gluten', 'Salt', 'Yeast'],
+			correctIndex: 3
+		},
+		{
+			question: "Which liquor is made from the blue agave plant?",
+			answers: ['Tequila', 'Rum', 'Whiskey', 'Brandy'],
 			correctIndex: 0
 		},
 		{
-			question: "This is question 2",
-			answers: ['a', 'b', 'c', 'd'],
+			question: "The rice dish Paella originated from what country?",
+			answers: ['Mexico', 'Spain', 'Portugal', 'Brazil'],
+			correctIndex: 1
+		},
+		{
+			question: "What country did bubble tea originate from?",
+			answers: ['Taiwan', 'China', 'Korea', 'Vietnam'],
 			correctIndex: 0
 		},
 		{
-			question: "This is question 3",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
+			question: "Where is the Coca-Cola headquarters located?",
+			answers: ['New York, NY', 'Seattle, WA', 'Austin, TX', 'Atlanta, GA'],
+			correctIndex: 3
 		},
 		{
-			question: "This is question 4",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
-		},
-		{
-			question: "This is question 5",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
-		},
-		{
-			question: "This is question 6",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
-		},
-		{
-			question: "This is question 7",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
-		},
-		{
-			question: "This is question 8",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
-		},
-		{
-			question: "This is question 9",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
-		},
-		{
-			question: "This is question 10",
-			answers: ['a', 'b', 'c', 'd'],
-			correctIndex: 0
+			question: "The state of Georgia is known for what fruit?",
+			answers: ['Apple', 'Banana', 'Peach', 'Mango'],
+			correctIndex: 2
 		}
 	]
 }
-
 
 function game() {
 	numCorrect = 0;
@@ -89,6 +88,7 @@ function game() {
 	}
 	$("#startButton").on("click",function() {
 		$("#startButton").hide();
+		$("#intro").hide();
 		newQuestion();
 	});
 
@@ -99,23 +99,15 @@ function game() {
 		$("#result").empty();
 		$("#result-image").empty();
 
-		$("#question").html(questions.questionArray[questionNum].question);
+		$("#question").html("Question " + (questionNum + 1) + ":<br>" + questions.questionArray[questionNum].question);
 		for (i=0;i<4;i++) {
 			$("#choices").append("<button class='answerChoice' data-val='"+i+"'>" + questions.questionArray[questionNum].answers[i] + "</button><br>");
 		}
 
 		timer.start();
-		// var timesUp = setTimeout(function() {
-		// 	$("#question").empty();
-		// 	$("#choices").empty();
-		// 	timer.stop();
-		// 	answerPage(5, false)}, 10000);
 
 		$(".answerChoice").on("click", function() {
-			// $("#question").empty();
-			// $("#choices").empty();
 			var answerIndex = $(this).data('val');
-			// timer.stop();
 			answerPage(answerIndex, true);
 		});
 	}
@@ -129,19 +121,19 @@ function game() {
 			numCorrect++;
 		}
 		else if (answered == false) {
-			$("#result").html("Time's Up!");
+			$("#result").html("Time's Up!<br>The correct answer was: " + questions.questionArray[questionNum].answers[(questions.questionArray[questionNum].correctIndex)]);
 			numUnanswered++;
 		}
 		else {
-			$("#result").html("Wrong!");
+			$("#result").html("Wrong!<br>The correct answer was: " + questions.questionArray[questionNum].answers[(questions.questionArray[questionNum].correctIndex)]);
 			numIncorrect++;
 		}
 		questionNum++;
 		if (questionNum < 10) {
-			var nextQuestion = setTimeout(newQuestion, 4000);
+			var nextQuestion = setTimeout(newQuestion, 3000);
 		}
 		else {
-			var nextQuestion = setTimeout(resultsPage, 4000);
+			var nextQuestion = setTimeout(resultsPage, 3000);
 		}
 	}
 
@@ -149,10 +141,10 @@ function game() {
 		$("#result").empty();
 		$("#result-image").empty();
 
-		$("#final-result").html("Survey Complete!  Here are your results:");
+		$("#final-result").html("Here are your results:");
 		$("#final-stats").html("Correct answers: " + numCorrect + "<br>Incorrect answers: " + numIncorrect + "<br>Unanswered questions: " + numUnanswered);
 
-		$("#play-again").html("<button id='newGame'>Play Again</button>");
+		$("#play-again").html("<button id='newGame' class='btn btn-default'>Play Again</button>");
 
 		$("#newGame").on("click", function() {
 			$("#final-result").empty();
@@ -165,8 +157,6 @@ function game() {
 			newQuestion();
 		});
 	}
-
-
 }
 
 game();

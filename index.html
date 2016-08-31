@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Video Game Trivia</title>
+		<title>Food Trivia Game</title>
+		<link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -9,18 +10,23 @@
 
 	<body>
 		<div id="header"></div>
-		<div id="main-content">
-			<button id="startButton">Start</button>
-			<div id="timer"></div>
-			<div id="question"></div>
-			<div id="choices"></div>
+		<div id="main-content" class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="intro">Welcome to the Food Trivia Game!</div>
+					<button id="startButton" class="btn btn-default">Start</button>
+					<div id="timer" class="text"></div>
+					<div id="question" class="text"></div>
+					<div id="choices" class="text"></div>
 
-			<div id="result"></div>
-			<div id="result-image"></div>
-			
-			<div id="final-result"></div>
-			<div id="final-stats"></div>
-			<div id="play-again"></div>
+					<div id="result" class="text"></div>
+					<div id="result-image"></div>
+					
+					<div id="final-result" class="text"></div>
+					<div id="final-stats" class="text"></div>
+					<div id="play-again"></div>
+				</div>
+			</div>
 		</div>
 
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
